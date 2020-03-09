@@ -31,14 +31,15 @@ The skip connections allow the network to use information from multiple resoluti
 
 Structurally an FCN is usually comprised of two parts (see image below):
 
- 1.	encoder 
- 2.	decoder. 
-
-The encoder is a series of convolutional layers like VGG and ResNet. The goal of the encoder is to extract features from the image. The decoder up-scales the output of the encoder such that it's the same size as the original image. Thus, it results in segmentation or prediction of each individual pixel in the original image. 
-
 <p align="right">
 <img src="./img/3.png" alt="fully convolutional layers" />
 <p align="right">
+ 
+  1.	encoder 
+  2.	decoder. 
+
+The encoder is a series of convolutional layers like VGG and ResNet. The goal of the encoder is to extract features from the image. The decoder up-scales the output of the encoder such that it's the same size as the original image. Thus, it results in segmentation or prediction of each individual pixel in the original image. 
+
  
 
 
