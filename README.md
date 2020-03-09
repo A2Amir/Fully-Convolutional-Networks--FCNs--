@@ -32,7 +32,7 @@ The skip connections allow the network to use information from multiple resoluti
 Structurally an FCN is usually comprised of two parts (see image below):
 
 <p align="right">
-<img src="./img/3.png" alt="fully convolutional layers" />
+<img src="./img/3.png" width="600" height="300" alt="fully convolutional layers" />
 <p align="right">
  
   1.	encoder 
