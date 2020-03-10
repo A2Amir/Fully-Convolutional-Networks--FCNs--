@@ -106,3 +106,37 @@ It is common for the encoder to be pre-trained on ImageNet. VGG and ResNet are p
 
 In the next sections I'll use fully convolutional networks to tackle scene understanding and semantic segmentation. 
 
+# 4. Scene Understanding
+
+
+The first task is object detection and for that, I can use bounding boxes. They are a simpler method of scene understanding compared to segmentation. Neural network just has to figure out where an object is and draw a box around it. 
+Note: There are already great open source state of the art solutions, such as YOLO and [SSD](https://github.com/A2Amir/Object-Detection--MobileNet-and-MobileNetSSD-) models. These models perform extremely well even at high frame per second. They're useful for detecting different objects such as roads, people, traffic lights, and other objects in the scene.
+
+
+<p align="right">
+<img src="./img/8.png" width="600" height="300" alt="bounding boxes" />
+<p align="right">
+ 
+ However, bounding  boxes have their limits. As seen above drawing a bounding box around a curvy road (or the forest, or the sky) quickly becomes problematic or even impossible to convey the true shape of an object.  At best, bounding boxes can only hope to achieve partial scene understanding. 
+ 
+In order to achieve scene understanding, semantic segmentation can be helpful. semantic segmentation is the task of assigning meaning to part of an object. This can be done at the pixel level where we assign each pixel to a target class such as road, car, pedestrian, sign, or any number of other classes (see image below). 
+
+
+<p align="right">
+<img src="./img/9.png" width="600" height="300" alt=" semantic segmentation " />
+<p align="right">
+ 
+ Semantic segmentation help us derive valuable information about every pixel in the image rather than just slicing sections into bounding boxes. This is a field known as scene understanding.
+
+One approach to full scene understanding is to train multiple decoders. Each decoder trains on a separate task. I might have one decoder for segmentation and another for depth measurement. So this I can have a single network which not only predicts the class of a pixel but additionally how far away it is (see image below). 
+
+
+<p align="right">
+<img src="./img/10.png" width="600" height="300" alt=" full scene understanding " />
+<p align="right">
+ 
+Imagine using this information (how far away it is and the class of a pixel) to reconstruct a rich 3D scene like how we human do. This is in fact, the next step to visual perception. For now, I'll keep things relatively simple focused just on semantic segmentation. 
+ 
+ 
+# 5. IoU
+ 
