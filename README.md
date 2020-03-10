@@ -138,5 +138,31 @@ One approach to full scene understanding is to train multiple decoders. Each dec
 Imagine using this information (how far away it is and the class of a pixel) to reconstruct a rich 3D scene like how we human do. This is in fact, the next step to visual perception. For now, I'll keep things relatively simple focused just on semantic segmentation. 
  
  
-# 5. IoU
+# 5. Intersection Over Union (IoU)
+
+ IOU is Intersection Over Union Metric, commonly used to measure the performance of a model on the semantic segmentation task. It is literally just the intersection set divided by the union set. 
+ 
+<p align="right">
+<img src="./img/11.png" width="600" height="300" alt=" Intersection Over Union (IoU) " />
+<p align="right">
+ 
+ Intersection of two sets is an AND operation. The intersection is defined as the number of pixels that are both truly part of that class and are classified as part of that class by the network (see Image above). 
+
+Union of the two set is a OR operation. The union is defined as the number of pixels that are truly part of that class plus the number of pixels that are classified as part of that class by the network (see Image above).
+ 
+**Note:**
+
+* the intersection set should always be smaller or equal to the union set. The ratio then tell us the overall performance per pixel, per class. 
+ 
+<p align="right">
+<img src="./img/12.png" width="600" height="300" alt=" Intersection Over Union (IoU) " />
+<p align="right">
+ 
+ * Since this intersection set is divided by the union set, the ratio will always be less than or equal to one. 
+ 
+ <p align="right">
+<img src="./img/13.png" width="600" height="300" alt=" Intersection Over Union (IoU) " />
+<p align="right">
+ 
+ I can go even further and calculate the mean IOU for a network, which is just the average of all the IOU for all the classes. This gives me an idea of how well it handles all the different classifications for every single pixel. 
  
