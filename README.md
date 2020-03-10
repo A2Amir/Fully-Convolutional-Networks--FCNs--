@@ -96,12 +96,12 @@ A FCN has two components, the encoder and the decoder. I mentioned that encoder 
 
 
 <p align="right">
-<img src="./img/6.png" width="600" height="300" alt="FCNs In The Wild" />
+<img src="./img/7.png" width="600" height="300" alt="FCNs In The Wild" />
 <p align="right">
 
 It is common for the encoder to be pre-trained on ImageNet. VGG and ResNet are popular choices, as examples. By applying the first special technique of one by one convolutional layer conversion, I can complete the encoder portion of the FCN. The encoder is followed by the decoder, which uses a second special technique of transposed convolutional layers to upsample the image. Then the skip connection via the third special technique is added.
 
-Note: Be careful not to add too many skip connections It can lead to the explosion in the size of your model. For example, when using VGG-16 as the encoder only the third and the fourth pooling layers are typically used for skip connections.
+**Note:** Be careful not to add too many skip connections It can lead to the explosion in the size of your model. For example, when using VGG-16 as the encoder only the third and the fourth pooling layers are typically used for skip connections.
 
 
 In the next sections I'll use fully convolutional networks to tackle scene understanding and semantic segmentation. 
