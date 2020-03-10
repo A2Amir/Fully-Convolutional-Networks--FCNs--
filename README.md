@@ -77,3 +77,32 @@ The 3x3 weighted kernel (product of input pixel with the 3x3 kernel) is depicted
 
 In TensorFlow, the API tf.layers.conv2d_transpose is used to create a transposed convolutional layer. Check this [exercise](https://github.com/A2Amir/Fully-Convolutional-Networks--FCNs--/blob/master/Code/TransposedConvolutionsExercise.ipynb) to learn about the second technique in FCNs.
 
+
+### 2.3. Skip Connections
+The third special technique that fully convolution on networks use is the skip connection. One effect of convolutions (encoding in general) is I narrow down the scope by looking closely at some picture and lose the bigger picture as a result. So even if I were to decode the output of the encoder back to the original image size, some information has been lost. 
+
+Skip connections are a way of retaining the information easily. The way skip connection work is by connecting the output of one layer to a non-adjacent layer. These skip connections allow the network to use information from multiple resolutions. As a result, the network is able to make more precise segmentation decisions. This is empirically shown in the following comparison between the FCN-8 architecture which has two skip connections and the FCN-32 architecture which has zero skip connections. 
+
+
+
+<p align="right">
+<img src="./img/6.png" width="600" height="300" alt="Skip Connections" />
+<p align="right">
+ 
+# 3. FCNs In The Wild
+
+A FCN has two components, the encoder and the decoder. I mentioned that encoder extracts features that will later be used by the decoder. This may sound familiar to transfer learning: In fact, I can borrow techniques from transfer learning to accelerate the training of my FCNs. 
+
+
+
+<p align="right">
+<img src="./img/6.png" width="600" height="300" alt="FCNs In The Wild" />
+<p align="right">
+
+It is common for the encoder to be pre-trained on ImageNet. VGG and ResNet are popular choices, as examples. By applying the first special technique of one by one convolutional layer conversion, I can complete the encoder portion of the FCN. The encoder is followed by the decoder, which uses a second special technique of transposed convolutional layers to upsample the image. Then the skip connection via the third special technique is added.
+
+Note: Be careful not to add too many skip connections It can lead to the explosion in the size of your model. For example, when using VGG-16 as the encoder only the third and the fourth pooling layers are typically used for skip connections.
+
+
+In the next sections I'll use fully convolutional networks to tackle scene understanding and semantic segmentation. 
+
