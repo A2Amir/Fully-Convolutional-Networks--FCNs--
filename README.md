@@ -155,14 +155,14 @@ Union of the two set is a OR operation. The union is defined as the number of pi
 * the intersection set should always be smaller or equal to the union set. The ratio then tell us the overall performance per pixel, per class. 
  
 <p align="right">
-<img src="./img/12.png" width="600" height="300" alt=" Intersection Over Union (IoU) " />
+<img src="./img/12.png" width="600" height="100" alt=" Intersection Over Union (IoU) " />
 <p align="right">
  
  * Since this intersection set is divided by the union set, the ratio will always be less than or equal to one. 
  
  <p align="right">
-<img src="./img/13.png" width="600" height="300" alt=" Intersection Over Union (IoU) " />
+<img src="./img/13.png" width="600" height="150" alt=" Intersection Over Union (IoU) " />
 <p align="right">
  
- I can go even further and calculate the mean IOU for a network, which is just the average of all the IOU for all the classes. This gives me an idea of how well it handles all the different classifications for every single pixel. 
+   I can go even further and calculate the mean IOU for a network, which is just the average of all the IOU for all the classes. This gives me an idea of how well it handles all the different classifications for every single pixel. 
  
