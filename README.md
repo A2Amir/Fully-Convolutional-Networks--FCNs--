@@ -22,11 +22,11 @@ In a classic convolutional network with fully connected final layers, the size o
 
 # 2. Fully Convolutional Networks
  Fully Convolutional Networks have achieved state of the art results in computer vision tasks,such as semantic segmentation. FCNs take advantage of three special techniques:
-
- 1.	replace fully connected layers with one by one convolutional layers
- 2.	up-sampling through the use of transposed convolutional layers
- 3. skip connections.
- 
+<b>
+  1.	replace fully connected layers with one by one convolutional layers
+  2.	up-sampling through the use of transposed convolutional layers
+  3. skip connections.
+</b> 
 The skip connections allow the network to use information from multiple resolution scales. As a result the network is able to make more precise segmentation decisions. I will discuss these techniques in greater detail shortly. 
 
 Structurally an FCN is usually comprised of two parts (see image below):
@@ -59,4 +59,50 @@ the input with the sliding window and performing element wise multiplication and
 In this [exercise](https://github.com/A2Amir/Fully-Convolutional-Networks--FCNs--/blob/master/Code/FullyConnectedto1x1ConvolutionExercise.ipynb) I am going to rewrite a dense layer, tf.layers.dense as a convolutional layer, tf.layers.conv2d. The underlying math will be the same, but the spatial information will be preserved allowing seamless use of future convolutional layers.
 
 
+### 2.2. Transposed Convolutions
+
+Using the second special technique, I can create decoder of FCN's using transposed convolution. A transpose convolution is essentially a reverse convolution in which the forward and the backward passes are swapped. Hence, we call it transpose convolution. Some people may call it deconvolution because it undoes the previous convolution. Since all we're doing is swapping the order of forward and backward passes, the math is actually exactly the same as what I have done earlier. The [property of differentiability]( https://en.wikipedia.org/wiki/Differentiable_function) is thus retain and training is simply the same as previous neural networks. 
+
+Actually Transposed Convolutions help in [upsampling](https://en.wikipedia.org/wiki/Upsampling) the previous layer(one by one) to a higher resolution or dimension. Upsampling is a classic signal processing technique which is often [accompanied by interpolation](https://dspguru.com/dsp/faqs/multirate/interpolation/).
+
+As an example, suppose I have a 2x2 input and a 3x3 kernel; with "SAME" padding, and a stride of 2 I can expect an output of dimension 4x4. The following image gives an idea of the process.
+
+<p align="right">
+<img src="./img/5.png" width="600" height="300" alt="Transposed Convolutions" />
+<p align="right">
+ 
+The 3x3 weighted kernel (product of input pixel with the 3x3 kernel) is depicted by the red and blue squares, which are separated by a stride of 2. The dotted square indicates the padding around the output. As the weighted kernel moves across, the stride determines the final dimension of the output. Different values for these will resul in different dimensions for the upsampled output.
+
+#### Transposed Convolutions Exercise
+
+In TensorFlow, the API tf.layers.conv2d_transpose is used to create a transposed convolutional layer. Check this [exercise](https://github.com/A2Amir/Fully-Convolutional-Networks--FCNs--/blob/master/Code/TransposedConvolutionsExercise.ipynb) to learn about the second technique in FCNs.
+
+
+### 2.3. Skip Connections
+The third special technique that fully convolution on networks use is the skip connection. One effect of convolutions (encoding in general) is I narrow down the scope by looking closely at some picture and lose the bigger picture as a result. So even if I were to decode the output of the encoder back to the original image size, some information has been lost. 
+
+Skip connections are a way of retaining the information easily. The way skip connection work is by connecting the output of one layer to a non-adjacent layer. These skip connections allow the network to use information from multiple resolutions. As a result, the network is able to make more precise segmentation decisions. This is empirically shown in the following comparison between the FCN-8 architecture which has two skip connections and the FCN-32 architecture which has zero skip connections. 
+
+
+
+<p align="right">
+<img src="./img/6.png" width="600" height="300" alt="Skip Connections" />
+<p align="right">
+ 
+# 3. FCNs In The Wild
+
+A FCN has two components, the encoder and the decoder. I mentioned that encoder extracts features that will later be used by the decoder. This may sound familiar to transfer learning: In fact, I can borrow techniques from transfer learning to accelerate the training of my FCNs. 
+
+
+
+<p align="right">
+<img src="./img/7.png" width="600" height="300" alt="FCNs In The Wild" />
+<p align="right">
+
+It is common for the encoder to be pre-trained on ImageNet. VGG and ResNet are popular choices, as examples. By applying the first special technique of one by one convolutional layer conversion, I can complete the encoder portion of the FCN. The encoder is followed by the decoder, which uses a second special technique of transposed convolutional layers to upsample the image. Then the skip connection via the third special technique is added.
+
+**Note:** Be careful not to add too many skip connections It can lead to the explosion in the size of your model. For example, when using VGG-16 as the encoder only the third and the fourth pooling layers are typically used for skip connections.
+
+
+In the next sections I'll use fully convolutional networks to tackle scene understanding and semantic segmentation. 
 
