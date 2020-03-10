@@ -41,5 +41,22 @@ Structurally an FCN is usually comprised of two parts (see image below):
 The encoder is a series of convolutional layers like VGG and ResNet. The goal of the encoder is to extract features from the image. The decoder up-scales the output of the encoder such that it's the same size as the original image. Thus, it results in segmentation or prediction of each individual pixel in the original image. 
 
  
+### 2.1. Fully Connected to 1x1 Convolution
+
+the first special technique in FCNs replaces a fully connected layer(from the classification networks) with one by one convolutional layers. This will result in the output value with the tensor, which has 4D instead, 2D, so spatial information will be preserved. 
+
+Recall, the output of the convolution operation is the result of sweeping the kernel over 
+the input with the sliding window and performing element wise multiplication and summation. 
+
+<p align="right">
+<img src="./img/4.png" width="600" height="300" alt="Fully Connected to 1x1 Convolution" />
+<p align="right">
+ 
+ One way to think about one by one convolutional layers is the number of kernels is equivalent to the number of outputs in a fully connected layer. Similarly, the number of weights in each kernel is equivalent to the number of inputs in the fully connected layer. Effectively, this turns convolutions into a matrix multiplication with spatial information.
+ 
+#### 1x1 Convolution Exercise
+
+In this [exercise](https://github.com/A2Amir/Fully-Convolutional-Networks--FCNs--/blob/master/Code/FullyConnectedto1x1ConvolutionExercise.ipynb) I am going to rewrite a dense layer, tf.layers.dense as a convolutional layer, tf.layers.conv2d. The underlying math will be the same, but the spatial information will be preserved allowing seamless use of future convolutional layers.
+
 
 
