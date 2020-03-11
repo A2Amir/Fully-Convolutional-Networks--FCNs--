@@ -198,5 +198,5 @@ To get the Union, I add up TP (3), FP (3) and FN (1) to get seven. The IOU for t
    
 
 ### IoU calculation  Exercise
-In this [exercise]() I am going to calculate the IOU metric given ground truth and prediction matrices. 
+In this [exercise](https://github.com/A2Amir/Fully-Convolutional-Networks--FCNs--/blob/master/Code/IoUCalculationExercise.ipynb) I am going to calculate the IOU metric given ground truth and prediction matrices. 
 
