@@ -166,3 +166,25 @@ Union of the two set is a OR operation. The union is defined as the number of pi
  
    I can go even further and calculate the mean IOU for a network, which is just the average of all the IOU for all the classes. This gives me an idea of how well it handles all the different classifications for every single pixel. 
  
+### IOU calculation Steps
+
+* Count true positives (TP)
+* Count false positives (FP)
+* Count false negatives (FN)
+* Intersection = TP
+* Union = TP + FP + FN
+* IOU = Intersection/Union
+
+
+ <p align="center">
+<img src="./img/14.png" width="100" height="100" alt=" Intersection Over Union (IoU) " />
+<p align="center">
+ 
+ 
+ <p align="center">
+<img src="./img/15.png" width="400" height="400" alt=" Intersection Over Union (IoU) " />
+<p align="center">
+ 
+ In the above, the left side is the ground truth, while the right side contains the predictions. The highlighted cells on the left side note which class I am looking at for statistics on the right side.
+The highlights on the right side note true positives in a cream color, false positives in orange, and false negatives in yellow (note that all others are true negatives - they are predicted as this individual class, and should not be based on the ground truth).
+
