@@ -164,6 +164,8 @@ Union of the two set is a OR operation. The union is defined as the number of pi
 <img src="./img/13.png" width="600" height="150" alt=" Intersection Over Union (IoU) " />
 <p align="right">
  
+* check this [Repo](https://github.com/A2Amir/Evaluation-Criteria-for-Segmentation-Networks) to get more familiar with evaluation of segmentation networks.
+ 
    I can go even further and calculate the mean IOU for a network, which is just the average of all the IOU for all the classes. This gives me an idea of how well it handles all the different classifications for every single pixel. 
  
 ### IOU calculation Steps
