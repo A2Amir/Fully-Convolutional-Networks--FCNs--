@@ -164,5 +164,39 @@ Union of the two set is a OR operation. The union is defined as the number of pi
 <img src="./img/13.png" width="600" height="150" alt=" Intersection Over Union (IoU) " />
 <p align="right">
  
+* check this [Repo](https://github.com/A2Amir/Evaluation-Criteria-for-Segmentation-Networks) to get more familiar with evaluation of segmentation networks.
+ 
    I can go even further and calculate the mean IOU for a network, which is just the average of all the IOU for all the classes. This gives me an idea of how well it handles all the different classifications for every single pixel. 
  
+### IOU calculation Steps
+
+* Count true positives (TP)
+* Count false positives (FP)
+* Count false negatives (FN)
+* Intersection = TP
+* Union = TP + FP + FN
+* IOU = Intersection/Union
+
+
+ <p align="center">
+<img src="./img/14.png" width="100" height="100" alt=" Intersection Over Union (IoU) " />
+<p align="center">
+ 
+ 
+ <p align="center">
+<img src="./img/15.png" width="400" height="400" alt=" Intersection Over Union (IoU) " />
+<p align="center">
+ 
+In the above, the left side is the ground truth, while the right side contains the predictions. The highlighted cells on the left side note which class I am looking at for statistics on the right side.
+The highlights on the right side note true positives in a cream color, false positives in orange, and false negatives in yellow (note that all others are true negatives - they are predicted as this individual class, and should not be based on the ground truth).
+
+I'll look at the first class, Class 0, and I can do the same calculations from there for each.For Class 0, only the top row of the 4x4 matrix should be predicted as zeros. This is a rather simplified version of a real ground truth - in reality, the zeros could be anywhere in the matrix. On the right side, I see 1,0,0,0, meaning the first is a false negative, but the other three are true positives (3 for Intersection as well). From there, I need to find anywhere else where zero was falsely predicted, and I note that happens once on the second row and twice on the fourth row, for a total of three false positives.
+
+To get the Union, I add up TP (3), FP (3) and FN (1) to get seven. The IOU for this class, therefore, is 3/7. If  I do this for all the classes and average the IOUs, I get:
+
+         Mean IOU = [(3/7) + (2/6) + (3/4) + (1/6)] / 4 = 0.420
+   
+
+### IoU calculation  Exercise
+In this [exercise]() I am going to calculate the IOU metric given ground truth and prediction matrices. 
+
