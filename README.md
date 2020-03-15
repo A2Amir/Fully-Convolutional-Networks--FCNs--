@@ -198,5 +198,12 @@ To get the Union, I add up TP (3), FP (3) and FN (1) to get seven. The IOU for t
    
 
 ### IoU calculation  Exercise
+
+In this exercise I am going to calculate the IOU metric given ground truth and prediction matrices. 
+
+## FCN-8 - Encoder
+In this section, I am going to focus on a concrete implementation of a fully convolutional network. I’ll discuss the FCN-8 architecture developed at Berkeley. In fact, many FCN models are derived from this FCN-8 implementation. The encoder for FCN-8 is the VGG16 model pretrained on ImageNet for classification. The fully-connected layers are replaced by 1-by-1 convolutions. Here’s an example of going from a fully-connected layer to a 1-by-1 convolution in TensorFlow:
+
+
 In this [exercise](https://github.com/A2Amir/Fully-Convolutional-Networks--FCNs--/blob/master/Code/IoUCalculationExercise.ipynb) I am going to calculate the IOU metric given ground truth and prediction matrices. 
 
