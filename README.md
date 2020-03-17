@@ -207,3 +207,9 @@ In this section, I am going to focus on a concrete implementation of a fully con
 
 In this [exercise](https://github.com/A2Amir/Fully-Convolutional-Networks--FCNs--/blob/master/Code/IoUCalculationExercise.ipynb) I am going to calculate the IOU metric given ground truth and prediction matrices. 
 
+## FCN-8 - Decoder
+To build the decoder portion of FCN-8, I will upsample the input to the original image size. The shape of the tensor after the final convolutional transpose layer will be 4-dimensional: (batch_size, original_height, original_width, num_classes). Let implement those transposed convolutions I discussed earlier as follows:
+
+#inputs,    filters,    kernel_size,    strides,
+output = tf.layers.conv2d_transpose(input, num_classes, 4, strides=(2, 2))
+The transpose convolutional layers increase the height and width dimensions of the 4D input Tensor.
