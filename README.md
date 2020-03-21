@@ -201,7 +201,7 @@ To get the Union, I add up TP (3), FP (3) and FN (1) to get seven. The IOU for t
 
 In this [exercise](https://github.com/A2Amir/Fully-Convolutional-Networks--FCNs--/blob/master/Code/IoUCalculationExercise.ipynb) I am going to calculate the IOU metric given ground truth and prediction matrices. 
 
-## 6. FCN-8
+# 6. FCN-8
 In this section, I am going to focus on a concrete implementation of a fully convolutional network. I’ll discuss the [FCN-8 architecture](https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf) developed at Berkeley. In fact, many FCN models are derived from this FCN-8 implementation. 
 
  #### 6.1 FCN-8 Encoder
