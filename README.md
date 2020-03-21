@@ -204,8 +204,8 @@ In this [exercise](https://github.com/A2Amir/Fully-Convolutional-Networks--FCNs-
 ## 6. FCN-8
 In this section, I am going to focus on a concrete implementation of a fully convolutional network. I’ll discuss the [FCN-8 architecture](https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf) developed at Berkeley. In fact, many FCN models are derived from this FCN-8 implementation. 
 
- #### 6.1 Encoder: FCN-8
-
+ #### 6.1 FCN-8 Encoder
+ 
 The encoder for FCN-8 is the VGG16 model pretrained on ImageNet for classification. The fully-connected layers are replaced by 1-by-1 convolutions. Here’s an example of going from a fully-connected layer to a 1-by-1 convolution in TensorFlow:
 
 ~~~python
@@ -219,8 +219,8 @@ output = tf.layers.conv2d(input, num_classes, 1, strides=(1,1))
 As seen above,the third argument (after the num_classes variable in conv2d) is the kernel size, meaning this is a 1 by 1 convolution. Thus far, I’ve downsampled the input image and extracted features using the VGG16 encoder. I’ve also replaced the linear layers with 1 by 1 convolutional layers, preserving spatial information.But this is just the encoder portion of the network. Next comes the decoder.
 
 
- #### 6.2 Decoder: FCN-8
-
+ #### 6.2 FCN-8 Decoder
+ 
 To build the decoder portion of FCN-8, I will upsample the input to the original image size. The shape of the tensor after the final convolutional transpose layer will be 4-dimensional: (batch_size, original_height, original_width, num_classes). Let implement those transposed convolutions I discussed earlier as follows:
 
 ~~~python
@@ -230,7 +230,7 @@ output = tf.layers.conv2d_transpose(input, num_classes, 4, strides=(2, 2))
 The transpose convolutional layers increase the height and width dimensions of the 4D input Tensor.
 
 
- #### 6.3 Skip Connections: FCN-8
+ #### 6.3 FCN-8 Skip Connections
 
 The final step is adding skip connections to the model. In order to do this I’ll combine the output of two layers. The first output is the output of the current layer. The second output is the output of a layer further back in the network, typically a pooling layer. In the following example I combine the result of the previous layer with the result of the 4th pooling layer through elementwise addition (tf.add).
 ~~~python
@@ -247,7 +247,7 @@ input = tf.add(input, pool_3)
 Input = tf.layers.conv2d_transpose(input, num_classes, 16, strides=(8, 8))
 ~~~
 
- #### 6.3 Classification & Loss: FCN-8
+ #### 6.3 FCN-8 Classification & Loss 
 The final step is to define a loss. That way, I can approach training a FCN just like I would approach training a normal classification CNN. In the case of a FCN, the goal is to assign each pixel to the appropriate class. We already happen to know a great loss function for this setup, cross entropy loss! Remember the output tensor is 4D so I have to reshape it to 2D:
 ~~~python
 logits = tf.reshape(input, (-1, num_classes))
