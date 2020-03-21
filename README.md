@@ -199,17 +199,45 @@ To get the Union, I add up TP (3), FP (3) and FN (1) to get seven. The IOU for t
 
 ### IoU calculation  Exercise
 
-In this exercise I am going to calculate the IOU metric given ground truth and prediction matrices. 
-
-## FCN-8 - Encoder
-In this section, I am going to focus on a concrete implementation of a fully convolutional network. I’ll discuss the FCN-8 architecture developed at Berkeley. In fact, many FCN models are derived from this FCN-8 implementation. The encoder for FCN-8 is the VGG16 model pretrained on ImageNet for classification. The fully-connected layers are replaced by 1-by-1 convolutions. Here’s an example of going from a fully-connected layer to a 1-by-1 convolution in TensorFlow:
-
-
 In this [exercise](https://github.com/A2Amir/Fully-Convolutional-Networks--FCNs--/blob/master/Code/IoUCalculationExercise.ipynb) I am going to calculate the IOU metric given ground truth and prediction matrices. 
 
-## FCN-8 - Decoder
+## 6. FCN-8 - Encoder
+
+In this section, I am going to focus on a concrete implementation of a fully convolutional network. I’ll discuss the FCN-8 architecture developed at Berkeley. In fact, many FCN models are derived from this FCN-8 implementation. The encoder for FCN-8 is the VGG16 model pretrained on ImageNet for classification. The fully-connected layers are replaced by 1-by-1 convolutions. Here’s an example of going from a fully-connected layer to a 1-by-1 convolution in TensorFlow:
+
+~~~python
+num_classes = 2
+output = tf.layers.dense(input, num_classes)
+#To:
+num_classes = 2
+output = tf.layers.conv2d(input, num_classes, 1, strides=(1,1))
+
+~~~
+As seen above,the third argument (after the num_classes variable in conv2d) is the kernel size, meaning this is a 1 by 1 convolution. Thus far, I’ve downsampled the input image and extracted features using the VGG16 encoder. I’ve also replaced the linear layers with 1 by 1 convolutional layers, preserving spatial information.But this is just the encoder portion of the network. Next comes the decoder.
+
+## 7. FCN-8 - Decoder
+
 To build the decoder portion of FCN-8, I will upsample the input to the original image size. The shape of the tensor after the final convolutional transpose layer will be 4-dimensional: (batch_size, original_height, original_width, num_classes). Let implement those transposed convolutions I discussed earlier as follows:
 
-#inputs,    filters,    kernel_size,    strides,
+~~~python
+                                     #inputs,filters,kernel_size,strides,
 output = tf.layers.conv2d_transpose(input, num_classes, 4, strides=(2, 2))
+~~~
 The transpose convolutional layers increase the height and width dimensions of the 4D input Tensor.
+
+## 8. Skip Connections
+
+The final step is adding skip connections to the model. In order to do this I’ll combine the output of two layers. The first output is the output of the current layer. The second output is the output of a layer further back in the network, typically a pooling layer. In the following example I combine the result of the previous layer with the result of the 4th pooling layer through elementwise addition (tf.add).
+~~~python
+# make sure the shapes are the same!
+input = tf.add(input, pool_4)
+~~~
+I can then follow this with another transposed convolution layer.
+~~~python
+input = tf.layers.conv2d_transpose(input, num_classes, 4, strides=(2, 2))
+~~~
+I’ll repeat this once more with the third pooling layer output.
+~~~python
+input = tf.add(input, pool_3)
+Input = tf.layers.conv2d_transpose(input, num_classes, 16, strides=(8, 8))
+~~~
