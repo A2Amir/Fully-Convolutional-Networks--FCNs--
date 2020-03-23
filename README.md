@@ -257,4 +257,4 @@ logits is now a 2D tensor where each row represents a pixel and each column a cl
 ~~~python
 cross_entropy_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits, labels))
 ~~~
-Now I have an end-to-end model for semantic segmentation. Time to get training!
+Now I have an end-to-end model for semantic segmentation. Time to get training. In [this Exercise](https://github.com/A2Amir/Fully-Convolutional-Networks--FCNs--/blob/master/Code/FCN8.ipynb) you can see the full implementation of a fully convolutional network. 
