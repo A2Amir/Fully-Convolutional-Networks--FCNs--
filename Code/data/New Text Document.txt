@@ -1,0 +1,1 @@
+By running the FCN8 exercise all of the data will be downloaded automatic.
