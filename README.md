@@ -1,7 +1,7 @@
 
 # 1. Introduction
 
-In this Repo, I will cover fully convolutional networks, object detection, semantics segmentation and inference optimizations. Finally, I'll apply these concepts and techniques to train and supervise semantic segmentation network and test my result on automotive videos. 
+In this Repo,first I will cover fully convolutional networks and semantics segmentation, then I'll apply these concepts and techniques to train and supervise semantic segmentation network. 
 
 A typical convolutional neural network might consist of a series of convolution layers followed by fully connected layers and ultimately a soft max activation function. This is a great architecture for a classification task like is this a picture of a hotdog? 
 
